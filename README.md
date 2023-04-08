@@ -34,7 +34,9 @@ python webui.py
 
 ## Using the API
 
-Run using `uvicorn api:app --reload`
+1. Make sure your model location is correct (see `Assistant.model_path` [here](/alpaca_turbo.py#64)). E.g. you may need to remove "/7B" with some default Dalai configurations.
+
+2. Run the api using `uvicorn api:app --reload`
 
 This will start a local development server at http://127.0.0.1:8000.
 
