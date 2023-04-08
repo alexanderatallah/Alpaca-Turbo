@@ -152,7 +152,8 @@ class Assistant:
         prep_bot_input
         """
         prompt = self.persona + "\n" + self.prompt
-        history = self.chat_history if self.enable_history else [self.chat_history[-1]]
+        history = self.chat_history if self.enable_history else [
+            self.chat_history[-1]]
         for instr, resp in history:
             prompt += self.format.format(instruction=instr, response=resp)
         prompt = prompt.strip("\n")
@@ -191,7 +192,8 @@ class Assistant:
 
         model_done = False
         for _ in track(range(40), "Loading Model"):
-            data = self.program.recv(1).decode("utf-8") if not model_done else None
+            data = self.program.recv(1).decode(
+                "utf-8") if not model_done else None
             model_done = True if data == "d" else model_done
             if model_done:
                 continue
@@ -210,7 +212,7 @@ class Assistant:
         if not self.is_ready:
             raise FileNotFoundError(
                 f"Cannot locate the specified model : {Assistant.model_path}\n Did you put the correct path in settings=>model_path?"
-           )
+            )
 
         self.program.recvuntil(">")
 
@@ -266,7 +268,8 @@ class Assistant:
                             eprint(
                                 f"Size of output: {len(buffer)} chars || {wcount} words"
                             )
-                            eprint(f"Time taken to for generation {(tend-tstart)} s")
+                            eprint(
+                                f"Time taken to for generation {(tend-tstart)} s")
                         break
                 try:
                     # Load the full buffer
@@ -318,8 +321,10 @@ class Assistant:
             tfirstchar = time()
             wcount = len(question.replace("\n", " ").split(" "))
             if self.DEBUG:
-                eprint(f"Size of Input: {len(question)} chars || {wcount} words")
-                eprint(f"Time taken to analyze the user input {(tfirstchar-tstart)} s")
+                eprint(
+                    f"Size of Input: {len(question)} chars || {wcount} words")
+                eprint(
+                    f"Time taken to analyze the user input {(tfirstchar-tstart)} s")
             data = char
             yield char.decode("utf-8")
             while True:
@@ -338,8 +343,10 @@ class Assistant:
                     tend = time()
                     wcount = len(data.replace(b"\n", b" ").split(b" "))
                     if self.DEBUG:
-                        eprint(f"Size of output: {len(data)} chars || {wcount} words")
-                        eprint(f"Time taken to for generation {(tend-tstart)} s")
+                        eprint(
+                            f"Size of output: {len(data)} chars || {wcount} words")
+                        eprint(
+                            f"Time taken to for generation {(tend-tstart)} s")
                     break
 
                 yield char.decode("utf-8")
